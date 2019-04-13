@@ -1,7 +1,9 @@
 const vorpal = require('vorpal')();
 const Build = require('./lib/cmd/build');
 const Run = require('./lib/cmd/run');
+const Kill = require('./lib/cmd/kill');
 const Validate = require('./lib/cmd/validate');
+const Monitor = require('./lib/cmd/monitor');
 
 vorpal.delimiter('demonitor$').show();
 
@@ -19,6 +21,16 @@ vorpal
   .action(Run.action);
 
 vorpal
+  .command('kill', 'Kill all instances of an application')
+  .option('--name <name>', 'Application name')
+  .action(Kill.action);
+
+vorpal
   .command('validate', 'Validate that the container instances are running')
   .option('--name <name>', 'Application name')
   .action(Validate.action);
+
+vorpal
+  .command('monitor', 'Monitor the resource usage of each container (CPU, I/O, etc)')
+  .option('--name <name>', 'Application name')
+  .action(Monitor.action);
