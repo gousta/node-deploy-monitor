@@ -10,18 +10,15 @@ vorpal
   .option('--dockerfile <path>', 'Path to Dockerfile')
   .option('--app <path>', 'Path to application')
   .option('--name <name>', 'Application name')
-  .action(Build.action)
-  .cancel(Build.cancel);
+  .action(Build.action);
 
 vorpal
   .command('run', 'Start one or more instances of an application')
   .option('--name <name>', 'Application name')
   .option('--instances <instances>', 'Number of instances')
-  .action(Run.action)
-  .cancel(Run.cancel);
+  .action(Run.action);
 
 vorpal
   .command('validate', 'Validate that the container instances are running')
   .option('--name <name>', 'Application name')
-  .action(Validate.action)
-  .cancel(Validate.cancel);
+  .action(Validate.action);
