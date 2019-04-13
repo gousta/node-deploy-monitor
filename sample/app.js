@@ -1,7 +1,6 @@
 const http = require('http');
 
-const hostname = '127.0.0.1';
-const port = 3000;
+const port = 8080;
 
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
@@ -9,7 +8,10 @@ const server = http.createServer((req, res) => {
   res.end('Hello World\n');
 });
 
-server.listen(port, hostname, () => {
+// eslint-disable-next-line no-console
+setInterval(() => console.log('Hello there. I am a log!'), 10000);
+
+server.listen(port, () => {
   // eslint-disable-next-line no-console
-  console.log(`Server running at http://${hostname}:${port}/`);
+  console.log(`Server running at port ${port}`);
 });

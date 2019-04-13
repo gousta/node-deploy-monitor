@@ -4,8 +4,10 @@ const Run = require('./lib/cmd/run');
 const Kill = require('./lib/cmd/kill');
 const Validate = require('./lib/cmd/validate');
 const Monitor = require('./lib/cmd/monitor');
+const Logs = require('./lib/cmd/logs');
+const Config = require('./config.json');
 
-vorpal.delimiter('demonitor$').show();
+vorpal.delimiter(`${Config.appName}$`).show();
 
 vorpal
   .command('build', 'Build a Docker Image from a given Dockerfile and an application')
@@ -34,3 +36,8 @@ vorpal
   .command('monitor', 'Monitor the resource usage of each container (CPU, I/O, etc)')
   .option('--name <name>', 'Application name')
   .action(Monitor.action);
+
+vorpal
+  .command('logs', 'Consolidate the log output of all the container instances into one centralized log file')
+  .option('--name <name>', 'Application name')
+  .action(Logs.action);
