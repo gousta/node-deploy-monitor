@@ -1,6 +1,7 @@
 const vorpal = require('vorpal')();
 const Build = require('./lib/cmd/build');
 const Run = require('./lib/cmd/run');
+const Validate = require('./lib/cmd/validate');
 
 vorpal.delimiter('demonitor$').show();
 
@@ -18,3 +19,9 @@ vorpal
   .option('--instances <instances>', 'Number of instances')
   .action(Run.action)
   .cancel(Run.cancel);
+
+vorpal
+  .command('validate', 'Validate that the container instances are running')
+  .option('--name <name>', 'Application name')
+  .action(Validate.action)
+  .cancel(Validate.cancel);

@@ -6,6 +6,7 @@
   "author": "Stratos Giouldasis <giouldasis.stratos@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "docker-cli-js": "^2.5.2",
     "execa": "^1.0.0",
     "lodash": "^4.17.11",
     "vorpal": "^1.12.0",
