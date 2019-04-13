@@ -1,0 +1,13 @@
+{
+  "extends": "airbnb",
+  "globals": {
+    "ENV": true,
+    "VERSION": true
+  },
+  "rules": {
+    "arrow-parens": [
+      "error",
+      "always"
+    ]
+  }
+}
