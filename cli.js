@@ -10,34 +10,26 @@ const Config = require('./config.json');
 vorpal.delimiter(`${Config.appName}$`).show();
 
 vorpal
-  .command('build', 'Build a Docker Image from a given Dockerfile and an application')
-  .option('--dockerfile <path>', 'Path to Dockerfile')
-  .option('--app <path>', 'Path to application')
-  .option('--name <name>', 'Application name')
+  .command('build <name> <dockerfile> <app>', 'Build a Docker Image from a given Dockerfile and an application')
   .action(Build.action);
 
 vorpal
-  .command('run', 'Start one or more instances of an application')
-  .option('--name <name>', 'Application name')
+  .command('run <name>', 'Start one or more instances of an application')
   .option('--instances <instances>', 'Number of instances')
   .action(Run.action);
 
 vorpal
-  .command('kill', 'Kill all instances of an application')
-  .option('--name <name>', 'Application name')
+  .command('kill <name>', 'Kill all instances of an application')
   .action(Kill.action);
 
 vorpal
-  .command('validate', 'Validate that the container instances are running')
-  .option('--name <name>', 'Application name')
+  .command('validate <name>', 'Validate that the container instances are running')
   .action(Validate.action);
 
 vorpal
-  .command('monitor', 'Monitor the resource usage of each container (CPU, I/O, etc)')
-  .option('--name <name>', 'Application name')
+  .command('monitor <name>', 'Monitor the resource usage of each container (CPU, I/O, etc)')
   .action(Monitor.action);
 
 vorpal
-  .command('logs', 'Consolidate the log output of all the container instances into one centralized log file')
-  .option('--name <name>', 'Application name')
+  .command('logs <name>', 'Consolidate the log output of all the container instances into one centralized log file')
   .action(Logs.action);
