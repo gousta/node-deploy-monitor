@@ -1,6 +1,6 @@
 import { Typography } from '@material-ui/core';
 import React from 'react';
-import DS from '../services/datasource';
+import DataStore from '../services/datastore';
 import Image from './Image';
 
 class ImagesDataSource extends React.Component {
@@ -18,7 +18,7 @@ class ImagesDataSource extends React.Component {
 
   fetch() {
     const { images } = this.state;
-    DS.images().then((data) => {
+    DataStore.images().then((data) => {
       if (data !== images) {
         this.setState({ images: data });
       }
@@ -39,8 +39,8 @@ const Empty = () => (
 const Images = ({ images }) => (
   <div>
     {images.map((image) => (
-      <div key={image}>
-        <Typography variant="headline" color="primary" style={{ marginLeft: 24, marginBottom: 16 }}>Img: <strong>{image}</strong></Typography>
+      <div key={image.repository}>
+        <Typography variant="headline" color="primary" style={{ marginLeft: 24, marginBottom: 16 }}>{image.repository}:{image.tag} <span style={{ color: '#777' }}>{image['image id']}</span></Typography>
         <Image image={image} />
       </div>
     ))}

@@ -9,6 +9,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import React from 'react';
+import DataStore from '../services/datastore';
+import Event from '../services/event';
 
 const styles = {
   card: {
@@ -18,6 +20,13 @@ const styles = {
   title: {
     fontSize: 14,
   },
+};
+
+const kill = (data) => {
+  const containerId = data['container id'];
+
+  DataStore.containerKill(containerId)
+    .then(() => Event.emit('container.kill', containerId));
 };
 
 const Container = ({ classes, data }) => (
@@ -66,10 +75,7 @@ const Container = ({ classes, data }) => (
     </ExpansionPanelDetails>
     <Divider />
     <ExpansionPanelActions>
-      <Button size="small">Cancel</Button>
-      <Button size="small" color="primary">
-        Save
-      </Button>
+      <Button size="small" color="secondary" onClick={() => kill(data)}>KILL</Button>
     </ExpansionPanelActions>
   </ExpansionPanel>
 );

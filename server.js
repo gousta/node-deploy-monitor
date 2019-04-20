@@ -1,11 +1,11 @@
 const _ = require('lodash');
 const app = require('express')();
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
 const cors = require('cors');
 const logger = require('./lib/core/logger.js');
 const { name, version } = require('./package.json');
-const { images, ps } = require('./lib/core/docker');
+const {
+  getImages, ps, containersKill, containersStop, stats, getContainerIds,
+} = require('./lib/core/docker');
 
 app.use(cors());
 app.use((req, res, next) => {
@@ -15,10 +15,9 @@ app.use((req, res, next) => {
 
 app.get('/', (req, res) => res.json({ name, version }));
 app.get('/images', (req, res) => {
-  images().then(({ containerList }) => {
-    if (containerList && containerList.length > 0) {
-      const imageList = _.uniq(containerList.map((c) => c.image));
-      res.json({ data: imageList });
+  getImages().then(({ images }) => {
+    if (images && images.length > 0) {
+      res.json({ data: images });
     } else {
       res.json({ data: [] });
     }
@@ -31,14 +30,22 @@ app.get('/images/:image', (req, res) => {
   });
 });
 
-server.listen(5555);
+app.post('/containers/:container/stop', (req, res) => {
+  containersStop([req.params.container]).then(() => res.json({}));
+});
 
-io.on('connection', (socket) => {
-  logger.log('connection'); // Let's log
+app.post('/containers/:container/kill', (req, res) => {
+  containersKill([req.params.container]).then(() => res.json({}));
+});
 
-  socket.emit('message-to-client', { hello: 'world' }); // TRANSMIT DATA
+// app.get('/images/:image/stats', (req, res) => {
+//   getContainerIds(req.params.image)
+//     .then((containerIds) => stats(containerIds))
+//     .then((data) => {
+//       res.json({ data });
+//     });
+// });
 
-  socket.on('message-to-server', (data) => { // ACCEPT DATA
-    logger.log(data);
-  });
+app.listen(5555, () => {
+  logger.info('[D&M][HTTP] STARTED: 5555');
 });

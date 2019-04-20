@@ -1,8 +1,8 @@
 
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
-import DS from '../services/datasource';
-import SOCKET from '../services/socket';
+import DataStore from '../services/datastore';
+import Event from '../services/event';
 import Container from './Container';
 
 class ImageDataSource extends React.Component {
@@ -12,23 +12,28 @@ class ImageDataSource extends React.Component {
     this.state = {
       containers: [],
     };
+
+    Event.on('container.kill', (containerId) => this.containerKill(containerId));
   }
 
   componentDidMount() {
     this.fetch();
-
-    SOCKET.on('message-to-client', (data) => {
-      console.log('', data);
-    });
-
     setInterval(() => this.fetch(), 10000);
   }
 
   fetch() {
     const { image } = this.props;
 
-    DS.image(image).then((data) => {
+    DataStore.image(image.repository).then((data) => {
       this.setState({ containers: data });
+    });
+  }
+
+  containerKill(containerId) {
+    const { containers } = this.state;
+
+    this.setState({
+      containers: containers.filter((c) => c['container id'] !== containerId),
     });
   }
 
