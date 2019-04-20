@@ -12,30 +12,30 @@
 
 ##### Build
 ```
-build --dockerfile ./sample/Dockerfile --app ./sample --name dm
+build test1 ./sample/Dockerfile ./sample
 ```
 
 ##### Run
 ```
-run --name dm --instances 5
+run test1 --instances 2 # My Mac freezes for minutes if I put more than 2, guess it just takes that long. Also, instances is optional, default is 1.
 ```
 
 ##### Validate
 ```
-validate --name dm
+validate test1
 ```
 
 ##### Monitor
 ```
-monitor --name dm
+monitor test1
 ```
 
 ##### Logs
 ```
-logs --name dm
+logs test1
 ```
 
 ##### (EXTRA) Kill
 ```
-kill --name dm
+kill test1 # This will kill all instances
 ```
