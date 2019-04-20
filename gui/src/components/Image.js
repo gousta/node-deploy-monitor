@@ -1,6 +1,8 @@
-import { Typography } from '@material-ui/core';
+
+import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import DS from '../services/datasource';
+import SOCKET from '../services/socket';
 import Container from './Container';
 
 class ImageDataSource extends React.Component {
@@ -14,13 +16,19 @@ class ImageDataSource extends React.Component {
 
   componentDidMount() {
     this.fetch();
+
+    SOCKET.on('message-to-client', (data) => {
+      console.log('', data);
+    });
+
+    setInterval(() => this.fetch(), 10000);
   }
 
   fetch() {
     const { image } = this.props;
 
     DS.image(image).then((data) => {
-      console.log('data', data);
+      this.setState({ containers: data });
     });
   }
 

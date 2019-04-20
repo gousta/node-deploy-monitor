@@ -14,7 +14,6 @@ class ImagesDataSource extends React.Component {
 
   componentDidMount() {
     this.fetch();
-    setInterval(() => this.fetch(), 10000);
   }
 
   fetch() {
@@ -41,7 +40,7 @@ const Images = ({ images }) => (
   <div>
     {images.map((image) => (
       <div key={image}>
-        <Typography variant="headline" color="primary">{image}</Typography>
+        <Typography variant="headline" color="primary" style={{ marginLeft: 24, marginBottom: 16 }}>Img: <strong>{image}</strong></Typography>
         <Image image={image} />
       </div>
     ))}
