@@ -48,4 +48,4 @@ To get the GUI up, you need to install some extra deps:
 2. Run `yarn install`
 3. Run `yarn start` to get it up an running (visit http://localhost:3000 if it doesn't open automatically)
 
-The GUI is only able to show and kill some containers, so make sure you run some first through the CLI!
+The GUI is only able to show and kill containers, so make sure you start some first from the CLI!
