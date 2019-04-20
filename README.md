@@ -8,7 +8,9 @@
 - Consolidate the log output of all the container instances into one centralized log file.
 - (extra) Kill all running/stopped processes of a Docker Image
 
-### Full demo:
+### CLI tool demo:
+For CLI to work, you need to install a couple of deps using `yarn install` in the root directory.
+Then just execute `node cli.js` to get started.
 
 ##### Build
 ```
@@ -17,7 +19,7 @@ build test1 ./sample/Dockerfile ./sample
 
 ##### Run
 ```
-run test1 --instances 2 # My Mac freezes for minutes if I put more than 2, guess it just takes that long. Also, instances is optional, default is 1.
+run test1 --instances 2 # Docker on Mac struggles for minutes if I put more than 5, so I put a limit. Also, instances is optional, default is 1.
 ```
 
 ##### Validate
@@ -39,3 +41,11 @@ logs test1
 ```
 kill test1 # This will kill all instances
 ```
+
+### Bonus: GUI!
+To get the GUI up, you need to install some extra deps:
+1. cd to `gui` directory
+2. Run `yarn install`
+3. Run `yarn start` to get it up an running (visit http://localhost:3000 if it doesn't open automatically)
+
+The GUI is only able to show and kill some containers, so make sure you run some first through the CLI!
